@@ -85,10 +85,6 @@ You can also upload it to **Google Sheets**: go to [sheets.google.com](https://s
 
 ---
 
-## 🔧 Technical reference
-
-> This section is for IT staff or advanced users. If you just want to run the script, see the instructions above.
-
 ## Output Format
 
 All three scripts produce a CSV with the following columns:
@@ -146,7 +142,7 @@ done >> ~/Desktop/software_report.csv
 **Requirements:** macOS with Xcode Command Line Tools (`codesign`, `defaults`)  
 **Output:** `~/Desktop/software_report.csv`
 
-Scans the top-level `/Applications` directory for `.app` bundles, reads the version from each app's `Info.plist`, and extracts the publisher from its code-signing certificate. Apps that are unsigned will show `Unknown` for the publisher, and those missing a version string will show `N/A`. Apps installed in user-specific locations (e.g. `~/Applications`) are not scanned.
+Scans the top-level `/Applications` directory for `.app` bundles, reads the version from each app's `Info.plist`, and extracts the publisher from its code-signing certificate. Apps that are unsigned will show `Unknown` for the publisher, and those missing a version string will show `N/A`. 
 
 > **Note:** This script appends to the CSV rather than overwriting it. If you're running it standalone (without the Windows or Linux scripts), prepend a header line first:
 > ```bash
@@ -154,9 +150,3 @@ Scans the top-level `/Applications` directory for `.app` bundles, reads the vers
 > ```
 
 ---
-
-## Notes
-
-- On **macOS**, `codesign` may be slow for large application directories since it inspects each app individually.
-- On **Windows**, entries with a blank `DisplayName` (common for system components) will appear as empty rows. These can be filtered out by piping through `Where-Object { $_.DisplayName }`.
-- None of the scripts require elevated/admin privileges, though results may be incomplete without them on systems with restricted registry or filesystem access.
